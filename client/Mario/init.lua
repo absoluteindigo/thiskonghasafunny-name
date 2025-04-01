@@ -279,9 +279,9 @@ local function checkCommonSubmergedCancels(m: Mario): boolean?
 			--  where your held object is the shell, but you are not in the
 			--  water shell swimming action. This allows you to hold the water
 			--  shell on land (used for cloning in DDD).
-			if m.Action() == Action.WATER_SHELL_SWIMMING and (m :: any).HeldObj ~= nil then
-				(m :: any).HeldObj.InteractStatus:Set(InteractionStatus.STOP_RIDING);
-				(m :: any).HeldObj = nil
+			if m.Action() == Action.WATER_SHELL_SWIMMING and m.HeldObj ~= nil then
+				m.HeldObj.InteractStatus:Set(InteractionStatus.STOP_RIDING)
+				m.HeldObj = nil
 			end
 
 			return m:TransitionSubmergedToWalking()
@@ -1176,7 +1176,7 @@ end
 function Mario.TransitionSubmergedToWalking(m: Mario): boolean
 	m.AngleVel *= 0
 
-	if (m :: any).HeldObj == nil then
+	if m.HeldObj == nil then
 		return m:SetAction(Action.WALKING)
 	else
 		return m:SetAction(Action.HOLD_WALKING)
@@ -1948,7 +1948,7 @@ function Mario.SwitchHandGrabPos(m: Mario, callContext: string)
 	local translation = Vector3.zero
 
 	if callContext == "RENDER" then
-		if (m :: any).HeldObj ~= nil then
+		if m.HeldObj ~= nil then
 			local grabPos = bodyState.GrabPos
 
 			if grabPos == 0x01 then
@@ -2477,7 +2477,7 @@ function Mario.BhvUpdate(m: Mario): number
 
 	-- Mario code updates MarioState's versions of position etc, so we need
 	-- to sync it with the Mario object
-	local marioObj = m.MarioObj
+	local marioObj = m.MarioObj :: any
 	if marioObj then
 		m:CopyMarioStateToObject(marioObj)
 	end
@@ -2648,7 +2648,8 @@ function Mario.Init(m: Mario, maybeSpawnInfo: dict?): Mario
 	m.Action:Set(m.Position.Y <= (m.WaterLevel - 100) and Action.WATER_IDLE or Action.IDLE)
 
 	m:ResetBodyState()
-	m.BodyState.PunchState = 0
+	m.BodyState.PunchTimer = 0
+	m.BodyState.PunchType = 0
 
 	m:CopyMarioStateToObject(marioObj)
 

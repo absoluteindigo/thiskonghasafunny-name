@@ -756,8 +756,10 @@ local function update()
 					return onReset()
 				end
 
-				pcall(task.cancel, autoResetThread)
-				autoResetThread = nil :: any
+				if autoResetThread then
+					pcall(task.cancel, autoResetThread)
+					autoResetThread = nil :: any
+				end
 			end)
 		end
 	end

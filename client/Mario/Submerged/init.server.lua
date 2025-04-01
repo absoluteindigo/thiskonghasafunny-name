@@ -379,7 +379,7 @@ local function checkWaterJump(m: Mario)
 			m.AngleVel = Vector3int16.new()
 			m.Velocity = Util.SetY(m.Velocity, 62)
 
-			if (m :: any).HeldObj == nil then
+			if m.HeldObj == nil then
 				return m:SetAction(Action.WATER_JUMP)
 			else
 				return m:SetAction(Action.HOLD_WATER_JUMP)
@@ -498,7 +498,7 @@ local function checkWaterGrab(m: Mario)
 			local dAngleToObject = Util.SignedShort(Util.Atan2s(dz, dx) - m.FaceAmgle.Y)
 
 			if math.abs(dAngleToObject) >= 0x2AAA then
-				(m :: any).UsedObj = object
+				m.UsedObj = object
 				m:GrabUsedObject()
 				m.BodyState.GrabPos = 0x01
 			end
@@ -869,8 +869,8 @@ DEF_ACTION(Action.WATER_SHELL_SWIMMING, function(m: Mario)
 
 	m.ActionTimer += 1
 	if m.ActionTimer == 240 and heldObj then
-		(m :: any).HeldObj.InteractStatus = InteractionStatus.STOP_RIDING;
-		(m :: any).HeldObj = nil
+		m.HeldObj.InteractStatus = InteractionStatus.STOP_RIDING
+		m.HeldObj = nil
 		-- stop_shell_music()
 		m:SetAction(Action.FLUTTER_KICK)
 	end
@@ -915,7 +915,7 @@ DEF_ACTION(Action.WATER_PUNCH, function(m: Mario)
 		end
 	elseif m.ActionState == 2 then
 		m:SetAnimation(Animations.WATER_PICK_UP_OBJ)
-		local heldObj = (m :: any).HeldObj
+		local heldObj = m.HeldObj
 		if m:IsAnimAtEnd() and heldObj then
 			if heldObj.Behavior == "bhvKoopaShellUnderwater" then
 				m:SetAction(Action.WATER_SHELL_SWIMMING)
@@ -954,7 +954,7 @@ end)
 
 DEF_ACTION(Action.WATER_PLUNGE, function(m: Mario)
 	local stepResult
-	local stateFlags = ((m :: any).HeldObj ~= nil) and 1 or 0
+	local stateFlags = (m.HeldObj ~= nil) and 1 or 0
 	local endVSpeed = swimmingNearSurface(m) and 0 or -5
 
 	if swimmingNearSurface(m) then

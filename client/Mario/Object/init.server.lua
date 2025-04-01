@@ -86,7 +86,7 @@ DEF_ACTION(Action.PICKING_UP, function(m: Mario)
 	end
 
 	if m.ActionState == 1 then
-		local heldObj: any = (m :: any).HeldObj
+		local heldObj: any = m.HeldObj
 
 		if heldObj then
 			if heldObj.InteractionSubtype:Has(InteractionSubtype.GRABS_MARIO) then
@@ -149,7 +149,7 @@ DEF_ACTION(Action.PLACING_DOWN, function(m: Mario)
 end)
 
 DEF_ACTION(Action.THROWING, function(m: Mario)
-	local heldObj = (m :: any).HeldObj
+	local heldObj = m.HeldObj
 
 	if heldObj and heldObj.InteractionSubtype:Has(InteractionSubtype.HOLDABLE_NPC) then
 		return m:SetAction(Action.PLACING_DOWN)

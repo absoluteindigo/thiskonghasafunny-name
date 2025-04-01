@@ -501,7 +501,7 @@ DEF_ACTION(Action.JUMP, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_JUMP, function(m: Mario)
-	local heldObj = (m :: any).HeldObj
+	local heldObj = m.HeldObj
 	local marioObj = (m :: any).MarioObj
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
@@ -594,7 +594,7 @@ DEF_ACTION(Action.FREEFALL, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_FREEFALL, function(m: Mario)
-	local heldObj = (m :: any).HeldObj
+	local heldObj = m.HeldObj
 	local marioObj = (m :: any).MarioObj
 
 	local anim = if m.ActionArg == 0
@@ -768,7 +768,7 @@ DEF_ACTION(Action.DIVE, function(m: Mario)
 			m.ParticleFlags:Add(ParticleFlags.MIST_CIRCLE)
 			m:DropAndSetAction(Action.HEAD_STUCK_IN_GROUND)
 		elseif not checkFallDamage(m, Action.HARD_FORWARD_GROUND_KB) then
-			if (m :: any).HeldObj == nil then
+			if m.HeldObj == nil then
 				m:SetAction(Action.DIVE_SLIDE)
 			else
 				m:SetAction(Action.DIVE_PICKING_UP)
@@ -1173,7 +1173,7 @@ DEF_ACTION(Action.WALL_SLIDE, function(m: Mario)
 end)
 
 DEF_ACTION(Action.AIR_HIT_WALL, function(m: Mario)
-	if (m :: any).HeldObj ~= nil then
+	if m.HeldObj ~= nil then
 		m:DropHeldObject()
 	end
 

@@ -58,6 +58,9 @@ type Object = {
 	-- emulating SM64 objects.
 	RbxPart: BasePart?,
 	CapFlag: number?,
+
+	-- dope
+	[string]: any,
 }
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -304,8 +307,7 @@ end
 local function takeDamageAndKnockback(m: Mario, o: Object): boolean
 	local damage = 0
 
-	local delayInvinc = (o :: any).InteractionSubtype
-		and (o :: any).InteractionSubtype:Has(InteractionSubtype.DELAY_INVINCIBILITY)
+	local delayInvinc = o.InteractionSubtype and o.InteractionSubtype:Has(InteractionSubtype.DELAY_INVINCIBILITY)
 	local mInvulnerable = (m.InvincTimer > 0 or m.Action:Has(ActionFlags.INVULNERABLE))
 		or m.Flags:Has(MarioFlags.VANISH_CAP)
 
@@ -330,8 +332,8 @@ local function bounceOffObject(m: Mario, o: Object, velY: number)
 	m:PlaySound(Sounds.ACTION_BOUNCE_OFF_OBJECT)
 end
 
-local function pushMarioOutOfObject(m: Mario, o: Object, padding: number?)
-	local padding = tonumber(padding) or 0
+local function pushMarioOutOfObject(m: Mario, o: Object, maybePadding: number?)
+	local padding = tonumber(maybePadding) or 0
 
 	local oPos = o.Position
 	local hitboxRadius = o.HitboxRadius
@@ -356,7 +358,7 @@ local function pushMarioOutOfObject(m: Mario, o: Object, padding: number?)
 		newMarioZ = oPos.Z + minDistance * Util.Coss(pushAngle)
 
 		local pos = Util.FindWallCollisions(Vector3.new(newMarioX, m.Position.Y, newMarioZ), 60.0, 50.0)
-		local _floorHeight, floor = Util.FindFloor(pos)
+		local _, floor = Util.FindFloor(pos)
 
 		if floor ~= nil then
 			--! Doesn't update Mario's referenced floor (allows oob death when
@@ -391,7 +393,6 @@ local function attackObject(o: Object, interaction: number): number
 		attackType = AttackType.FROM_BELOW
 	end
 
-	local o = o :: any
 	if o.InteractStatus then
 		o.InteractStatus.Value = attackType + bit32.bor(InteractionStatus.INTERACTED, InteractionStatus.WAS_ATTACKED)
 	end
@@ -513,7 +514,7 @@ local function ableToGrabObject(m: Mario, o: Object): boolean
 	local action = m.Action()
 
 	if action == Action.DIVE_SLIDE or action == Action.DIVE then
-		if not (o :: any).InteractionSubtype:Has(InteractionSubtype.GRABS_MARIO) then
+		if not o.InteractionSubtype:Has(InteractionSubtype.GRABS_MARIO) then
 			return true
 		end
 	elseif action == Action.PUNCHING or action == Action.MOVE_PUNCHING then
@@ -527,7 +528,7 @@ end
 
 -- Advanced objects only
 local function marioGetCollidedObject(m: Mario, interactType: number)
-	local marioObj = (m :: any).MarioObj :: any
+	local marioObj = m.MarioObj :: any
 
 	for _, object in marioObj.CollidedObjs do
 		if object.InteractType == interactType then
@@ -540,7 +541,7 @@ end
 
 local function marioCheckObjectGrab(m: Mario)
 	local result = false
-	local interactObj = (m :: any).InteractObj
+	local interactObj = m.InteractObj
 
 	if m.Input:Has(InputFlags.INTERACT_OBJ_GRABBABLE) and interactObj then
 		local Script = interactObj.Behavior
@@ -550,7 +551,7 @@ local function marioCheckObjectGrab(m: Mario)
 		else
 			local facingDYaw = Util.SignedShort(marioObjAngleToObject(m, interactObj) - m.FaceAngle.Y)
 			if facingDYaw >= -0x2AAA and facingDYaw <= 0x2AAA then
-				(m :: any).UsedObj = interactObj
+				m.UsedObj = interactObj
 
 				if not m.Action:Has(ActionFlags.AIR) then
 					m:SetAction(m.Action:Has(ActionFlags.DIVING) and Action.DIVE_PICKING_UP or Action.PICKING_UP)
@@ -603,7 +604,7 @@ local function bounceBackFromAttack(m: Mario, interaction: number)
 end
 
 local function checkObjectGrabMario(m: Mario, _, o: Object): boolean
-	local interactionSubtype = (o :: any).InteractionSubtype
+	local interactionSubtype = o.InteractionSubtype
 
 	if not interactionSubtype then
 		return false
@@ -613,12 +614,12 @@ local function checkObjectGrabMario(m: Mario, _, o: Object): boolean
 		(not m.Action:Has(ActionFlags.AIR, ActionFlags.INVULNERABLE, ActionFlags.ATTACKING) or not sInvulnerable)
 		and interactionSubtype:Has(InteractionSubtype.GRABS_MARIO)
 	then
-		Interaction.MarioStopRidingAndHolding(m);
-		(o :: any).InteractStatus.Value = bit32.bor(InteractionStatus.INTERACTED, InteractionStatus.GRABBED_MARIO)
+		Interaction.MarioStopRidingAndHolding(m)
+		o.InteractStatus:Set(InteractionStatus.INTERACTED, InteractionStatus.GRABBED_MARIO)
 
-		m.FaceAngle.Y = o.MoveAngleYaw or 0;
-		(m :: any).InteractObj = o;
-		(m :: any).UsedObj = o
+		m.FaceAngle.Y = o.MoveAngleYaw or 0
+		m.InteractObj = o
+		m.UsedObj = o
 
 		m:PlaySound(Sounds.MARIO_OOOF)
 		return m:SetAction(Action.GRABBED)
@@ -627,18 +628,6 @@ local function checkObjectGrabMario(m: Mario, _, o: Object): boolean
 	pushMarioOutOfObject(m, o, -5.0)
 	return false
 end
-
---[[
-local function shouldPushOrPullDoor(m: Mario, point: Vector3, cframe: CFrame): number
-	local dx = point.X - m.Position.X
-	local dz = point.Z - m.Position.Z
-
-	local _, dYaw = Util.CFrameToSM64Angles(cframe)
-	dYaw = Util.SignedShort(dYaw - Util.Atan2s(dz, dx))
-
-	return (dYaw >= -0x4000 and dYaw <= 0x4000) and 0x00000001 or 0x00000002
-end
-]]
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- Mario Interactions
@@ -653,10 +642,10 @@ function Interaction.InteractFlame(m: Mario, o: Object): boolean
 		and not m.Action:Has(ActionFlags.INVULNERABLE, ActionFlags.INTANGIBLE)
 		and not m.Flags:Has(MarioFlags.METAL_CAP, MarioFlags.VANISH_CAP)
 	then
-		if (o :: any).InteractStatus then
-			(o :: any).InteractStatus = InteractionStatus.INTERACTED
+		if o.InteractStatus then
+			o.InteractStatus = InteractionStatus.INTERACTED
 		end
-		(m :: any).InteractObj = o
+		m.InteractObj = o
 
 		if m.Action:Has(ActionFlags.SWIMMING, ActionFlags.METAL_WATER) and m.WaterLevel - m.Position.Y > 50.0 then
 			m:PlaySound(Sounds.GENERAL_FLAME_OUT)
@@ -675,7 +664,6 @@ function Interaction.InteractFlame(m: Mario, o: Object): boolean
 	return false
 end
 
--- Vector3 point must be in SM64 Units.
 function Interaction.InteractDamage(m: Mario, o: Object): boolean
 	preparePseudoObject(o)
 
@@ -683,14 +671,13 @@ function Interaction.InteractDamage(m: Mario, o: Object): boolean
 		return true
 	end
 
-	if (o :: any).InteractionSubtype and (o :: any).InteractionSubtype:Has(InteractionSubtype.DELAY_INVINCIBILITY) then
+	if o.InteractionSubtype and o.InteractionSubtype:Has(InteractionSubtype.DELAY_INVINCIBILITY) then
 		sDelayInvincTimer = true
 	end
 
 	return false
 end
 
--- Vector3 point must be in SM64 Units.
 function Interaction.InteractKoopaShell(m: Mario, o: Object): boolean
 	preparePseudoObject(o)
 
@@ -702,8 +689,8 @@ function Interaction.InteractKoopaShell(m: Mario, o: Object): boolean
 			or m.Action() == Action.WALKING
 			or m.Action() == Action.HOLD_WALKING
 		then
-			(m :: any).InteractObj = o;
-			(m :: any).UsedObj = o
+			m.InteractObj = o
+			m.UsedObj = o
 			-- m.RiddenObj = o
 
 			attackObject(o, interaction)
@@ -724,21 +711,18 @@ function Interaction.InteractKoopaShell(m: Mario, o: Object): boolean
 	return false
 end
 
-function Interaction.InteractCap(m: Mario, o: Object | number): boolean
+function Interaction.InteractCap(m: Mario, o: any): boolean
 	local capMusic = 0
 	local capTime = 0
 
-	preparePseudoObject(o :: any)
+	preparePseudoObject(o)
 
-	-- stylua: ignore
-	local capFlag: number = if typeof(o) == "table" then
-		(tonumber(o.CapFlag) or 0)
-	else (tonumber(o) or 0)
+	local capFlag: number = if typeof(o) == "table" then (o.CapFlag or 0) else (tonumber(o) or 0)
 
 	if m.Action() ~= Action.GETTING_BLOWN and table.find(acceptableCapFlags, capFlag) then
-		(m :: any).InteractObj = o
-		if isPseudoObject(o) and (o :: any).InteractStatus then
-			(o :: any).InteractStatus = InteractionStatus.INTERACTED
+		m.InteractObj = o
+		if isPseudoObject(o) and o.InteractStatus then
+			o.InteractStatus = InteractionStatus.INTERACTED
 		end
 
 		m.Flags:Remove(MarioFlags.CAP_ON_HEAD, MarioFlags.CAP_IN_HAND)
@@ -808,12 +792,12 @@ function Interaction.InteractStarOrKey(m: Mario, o: Object): boolean
 			starGrabAction = Action.FALL_AFTER_STAR_GRAB
 		end
 
-		if (o :: any).InteractStatus then
-			(o :: any).InteractStatus = InteractionStatus.INTERACTED
+		if o.InteractStatus then
+			o.InteractStatus = InteractionStatus.INTERACTED
 		end
 
-		(m :: any).InteractObj = o;
-		(m :: any).UsedObj = o
+		m.InteractObj = o
+		m.UsedObj = o
 
 		-- starIndex = bit32.band(bit32.rshift(o.BhvParams, 24), 0x1F)
 		-- saveFileCollectStarOrKey(m.NumCoins, starIndex)
@@ -853,9 +837,9 @@ function Interaction.InteractBounceTop(m: Mario, o: Object): boolean
 		bounceBackFromAttack(m, interaction)
 
 		if bit32.btest(interaction, InteractionType.HIT_FROM_ABOVE) then
-			local isTwirlBounce = (o :: any).TwirlBounce
-			if not isPseudoObject(o) and (o :: any).InteractionSubtype then
-				isTwirlBounce = (o :: any).InteractionSubtype:Has(InteractionSubtype.TWIRL_BOUNCE)
+			local isTwirlBounce = o.TwirlBounce
+			if not isPseudoObject(o) and o.InteractionSubtype then
+				isTwirlBounce = o.InteractionSubtype:Has(InteractionSubtype.TWIRL_BOUNCE)
 			end
 
 			if isTwirlBounce then
@@ -872,7 +856,7 @@ function Interaction.InteractBounceTop(m: Mario, o: Object): boolean
 		return true
 	end
 
-	if (o :: any).InteractionSubtype and (o :: any).InteractionSubtype:Has(InteractionSubtype.DELAY_INVINCIBILITY) then
+	if o.InteractionSubtype and o.InteractionSubtype:Has(InteractionSubtype.DELAY_INVINCIBILITY) then
 		sDelayInvincTimer = true
 	end
 
@@ -884,9 +868,9 @@ function Interaction.InteractShock(m: Mario, o: Object): boolean
 
 	sInvulnerable = (m.Action:Has(ActionFlags.INVULNERABLE) or m.InvincTimer ~= 0)
 	if not sInvulnerable and not m.Flags:Has(MarioFlags.VANISH_CAP) then
-		local actionArg = m.Action:Has(ActionFlags.AIR, ActionFlags.ON_POLE, ActionFlags.HANGING) == false;
+		local actionArg = m.Action:Has(ActionFlags.AIR, ActionFlags.ON_POLE, ActionFlags.HANGING) == false
 
-		(m :: any).InteractObj = o
+		m.InteractObj = o
 
 		takeDamageFromInteractObject(m, o)
 		m:PlaySound(Sounds.MARIO_ATTACKED)
@@ -911,8 +895,8 @@ function Interaction.InteractPole(m: Mario, o: Object): boolean
 			local velConv = m.ForwardVel
 			local lowSpeed = m.ForwardVel <= 10.0
 
-			Interaction.MarioStopRidingAndHolding(m);
-			(m :: any).InteractObj = o
+			Interaction.MarioStopRidingAndHolding(m)
+			m.InteractObj = o
 
 			--! Still using BaseParts for poles.
 			--  Change to your own solution for SM64 objects if any
@@ -947,8 +931,8 @@ function Interaction.InteractCoin(m: Mario, o: Object): boolean
 	m.NumCoins += coinValue
 	m.HealCounter += 4 * coinValue
 
-	if o and (o :: any).InteractStatus then
-		(o :: any).InteractStatus = InteractionStatus.INTERACTED
+	if o and o.InteractStatus then
+		o.InteractStatus = InteractionStatus.INTERACTED
 	end
 
 	--[[
@@ -963,7 +947,7 @@ end
 -- Advanced objects only
 function Interaction.InteractGrabbable(m: Mario, o: Object, interactType: number): boolean
 	local Script = o.Behavior
-	local interactionSubtype = (o :: any).InteractionSubtype
+	local interactionSubtype = o.InteractionSubtype
 
 	if not interactionSubtype then
 		return false
@@ -987,7 +971,7 @@ function Interaction.InteractGrabbable(m: Mario, o: Object, interactType: number
 
 	if ableToGrabObject(m, o) then
 		if not interactionSubtype:Has(InteractionSubtype.NOT_GRABBABLE) then
-			(m :: any).InteractObj = o
+			m.InteractObj = o
 			m.Input:Add(InputFlags.INTERACT_OBJ_GRABBABLE)
 			return true
 		end
@@ -1018,7 +1002,7 @@ function Interaction.ProcessMarioInteractions(m: Mario)
 	end
 
 	-- Advanced objects only
-	local marioObj = (m :: any).MarioObj :: any
+	local marioObj = m.MarioObj :: any
 	if marioObj then
 		if not m.Action:Has(ActionFlags.INTANGIBLE) and marioObj.CollidedObjInteractTypes() ~= 0 then
 			for _, handler in Interaction.InteractionHandlers do

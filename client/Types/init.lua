@@ -55,7 +55,14 @@ export type MarioState = {
 	HitboxHeight: number,
 	HitboxRadius: number,
 	TerrainType: number,
-	HeldObj: Instance?,
+
+	-- define if you have object class
+	InteractObj: any,
+	RiddenObj: any,
+	HeldObj: any,
+	UsedObj: any,
+
+	MarioObj: any,
 
 	ActionState: number,
 	ActionTimer: number,

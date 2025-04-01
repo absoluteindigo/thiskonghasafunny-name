@@ -141,6 +141,8 @@ local function handleSaveMenu(m: Mario)
 		m.FaceAngle += Vector3int16.new(0, 0x8000, 0)
 		return m:SetAction(Action.IDLE)
 	end
+
+	return false
 end
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

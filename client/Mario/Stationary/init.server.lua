@@ -910,7 +910,7 @@ end)
 
 DEF_ACTION(Action.HOLD_IDLE, function(m: Mario)
 	local marioObj = (m :: any).MarioObj
-	local heldObj = (m :: any).HeldObj
+	local heldObj = m.HeldObj
 
 	if heldObj and heldObj.Behavior == "bhvJumpingBox" then
 		return m:SetAction(Action.CRAZY_BOX_BOUNCE)

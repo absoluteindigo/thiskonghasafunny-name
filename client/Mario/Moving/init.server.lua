@@ -1088,7 +1088,7 @@ DEF_ACTION(Action.WALKING, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_WALKING, function(m: Mario)
-	local heldObj = (m :: any).HeldObj
+	local heldObj = m.HeldObj
 	local marioObj = (m :: any).MarioObj
 
 	if heldObj and heldObj.Behavior == "bhvJumpingBox" then
