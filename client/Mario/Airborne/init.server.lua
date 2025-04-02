@@ -502,7 +502,7 @@ end)
 
 DEF_ACTION(Action.HOLD_JUMP, function(m: Mario)
 	local heldObj = m.HeldObj
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action.FREEFALL)
@@ -595,7 +595,7 @@ end)
 
 DEF_ACTION(Action.HOLD_FREEFALL, function(m: Mario)
 	local heldObj = m.HeldObj
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	local anim = if m.ActionArg == 0
 		then Animations.FALL_WITH_LIGHT_OBJ
@@ -841,7 +841,7 @@ DEF_ACTION(Action.WATER_JUMP, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_WATER_JUMP, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action.FREEFALL)
@@ -1273,7 +1273,7 @@ DEF_ACTION(Action.BUTT_SLIDE_AIR, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_BUTT_SLIDE_AIR, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 	local stepResult
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then

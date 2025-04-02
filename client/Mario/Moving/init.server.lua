@@ -1089,7 +1089,7 @@ end)
 
 DEF_ACTION(Action.HOLD_WALKING, function(m: Mario)
 	local heldObj = m.HeldObj
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if heldObj and heldObj.Behavior == "bhvJumpingBox" then
 		return m:SetAction(Action.CRAZY_BOX_BOUNCE)
@@ -1372,7 +1372,7 @@ end)
 
 DEF_ACTION(Action.HOLD_DECELERATING, function(m: Mario)
 	local slopeClass = m:GetFloorClass()
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action.WALKING)
@@ -1643,7 +1643,7 @@ DEF_ACTION(Action.STOMACH_SLIDE, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_STOMACH_SLIDE, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action.WALKING)
 	end
@@ -1746,7 +1746,7 @@ DEF_ACTION(Action.JUMP_LAND, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_JUMP_LAND, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action.JUMP_LAND_STOP)
 	end
@@ -1769,7 +1769,7 @@ DEF_ACTION(Action.FREEFALL_LAND, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_FREEFALL_LAND, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action.FREEFALL_LAND_STOP)
 	end

@@ -487,7 +487,7 @@ local function checkWaterGrab(m: Mario)
 	--! Heave hos have the grabbable interaction type but are not normally
 	-- grabbable. Since water grabbing doesn't check the appropriate input flag,
 	-- you can use water grab to pick up heave ho.
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if marioObj and marioObj.CollidedObjInteractTypes:Has(InteractionMethod.GRABBABLE) then
 		local object = m:GetCollidedObject(InteractionMethod.GRABBABLE)
@@ -536,7 +536,7 @@ DEF_ACTION(Action.WATER_IDLE, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_WATER_IDLE, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if m.Flags:Has(MarioFlags.METAL_CAP) then
 		return m:SetAction(Action.HOLD_METAL_WATER_FALLING)
@@ -581,7 +581,7 @@ DEF_ACTION(Action.WATER_ACTION_END, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_WATER_ACTION_END, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if m.Flags:Has(MarioFlags.METAL_CAP) then
 		return m:SetAction(Action.HOLD_METAL_WATER_FALLING)
@@ -664,7 +664,7 @@ DEF_ACTION(Action.BREASTSTROKE, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_BREASTSTROKE, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if m.Flags:Has(MarioFlags.METAL_CAP) then
 		return m:SetAction(Action.HOLD_METAL_WATER_FALLING)
@@ -758,7 +758,7 @@ DEF_ACTION(Action.SWIMMING_END, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_SWIMMING_END, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if m.Flags:Has(MarioFlags.METAL_CAP) then
 		return m:SetAction(Action.HOLD_METAL_WATER_FALLING)
@@ -827,7 +827,7 @@ DEF_ACTION(Action.FLUTTER_KICK, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_FLUTTER_KICK, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if m.Flags:Has(MarioFlags.METAL_CAP) then
 		return m:SetAction(Action.HOLD_METAL_WATER_FALLING)
@@ -856,8 +856,8 @@ DEF_ACTION(Action.HOLD_FLUTTER_KICK, function(m: Mario)
 end)
 
 DEF_ACTION(Action.WATER_SHELL_SWIMMING, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
-	local heldObj = assert((m :: any).MarioObj)
+	local marioObj = m.MarioObj
+	local heldObj = assert(m.MarioObj)
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action.WATER_IDLE)
@@ -1058,7 +1058,7 @@ DEF_ACTION(Action.METAL_WATER_STANDING, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_METAL_WATER_STANDING, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action.METAL_WATER_STANDING)
@@ -1120,7 +1120,7 @@ DEF_ACTION(Action.METAL_WATER_WALKING, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_METAL_WATER_WALKING, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action.METAL_WATER_WALKING)
@@ -1190,7 +1190,7 @@ DEF_ACTION(Action.METAL_WATER_JUMP, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_METAL_WATER_JUMP, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 	local airStep
 
 	if not m.Flags:Has(MarioFlags.METAL_CAP) then
@@ -1238,7 +1238,7 @@ DEF_ACTION(Action.METAL_WATER_FALLING, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_METAL_WATER_FALLING, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action._METAL_WATER_FALLING)
@@ -1284,7 +1284,7 @@ DEF_ACTION(Action.METAL_WATER_JUMP_LAND, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_METAL_WATER_JUMP_LAND, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 	playMetalWaterJumpingSound(m, true)
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
@@ -1327,7 +1327,7 @@ DEF_ACTION(Action.METAL_WATER_FALL_LAND, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_METAL_WATER_FALL_LAND, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 	playMetalWaterJumpingSound(m, true)
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then

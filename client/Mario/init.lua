@@ -2463,7 +2463,7 @@ function Mario.ExecuteAction(m: Mario): number
 	m:UpdateHealth()
 	m:UpdateModel()
 
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 	if marioObj then
 		marioObj.InteractStatus:Clear()
 	end

@@ -68,7 +68,7 @@ local function checkCommonIdleCancels(m: Mario)
 end
 
 local function checkCommonHoldIdleCancels(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 	local floor = m.Floor
 
 	if floor and m.Floor.Normal.Y < 0.29237169 then
@@ -531,7 +531,7 @@ DEF_ACTION(Action.BUTT_SLIDE_STOP, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_BUTT_SLIDE_STOP, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action.IDLE)
@@ -693,7 +693,7 @@ DEF_ACTION(Action.JUMP_LAND_STOP, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_JUMP_LAND_STOP, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action.JUMP_LAND_STOP)
 	end
@@ -744,7 +744,7 @@ DEF_ACTION(Action.FREEFALL_LAND_STOP, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_FREEFALL_LAND_STOP, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 
 	if marioObj and marioObj.InteractStatus:Has(InteractionStatus.MARIO_DROP_OBJECT) then
 		return m:DropAndSetAction(Action.IDLE)
@@ -909,7 +909,7 @@ DEF_ACTION(Action.COUGHING, function(m: Mario)
 end)
 
 DEF_ACTION(Action.HOLD_IDLE, function(m: Mario)
-	local marioObj = (m :: any).MarioObj
+	local marioObj = m.MarioObj
 	local heldObj = m.HeldObj
 
 	if heldObj and heldObj.Behavior == "bhvJumpingBox" then

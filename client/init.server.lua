@@ -709,7 +709,7 @@ local function update()
 
 		-- Mario code updates MarioState's versions of position etc, so we need
 		-- to sync it with the Mario object
-		local marioObj = (mario :: any).MarioObj
+		local marioObj = mario.MarioObj
 		if marioObj then
 			mario:CopyMarioStateToObject(marioObj)
 		end
