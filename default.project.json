@@ -1,38 +1,16 @@
 {
-    "name": "Super Mario 64",
-
-    "tree": {
-        "$className": "DataModel",
-        "$ignoreUnknownInstances": true,
-
-        "Workspace": {
-            "$className": "Workspace",
-            "$ignoreUnknownInstances": true,
-
-            "SM64": {
-                "$className": "Folder",
-
-                "$attributes": {
-                    "TimeScale": 1,
-                    "WingCap": false,
-                    "HotLoading": false,
-                    "DebugToggle": true,
-                    "TruncateBounds": true,
-                    "ToolAssistedInput": true
-                },
-
-                "Client": {
-                    "$path": "client"
-                },
-
-                "Server": {
-                    "$path": "server"
-                },
-
-                "Shared": {
-                    "$path": "shared"
-                }
-            }
-        }
+  "name": "project",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "$ignoreUnknownInstances": true,
+      "$path": "src/ReplicatedStorage"
+    },
+    "Workspace": {
+      "$className": "Workspace",
+      "$ignoreUnknownInstances": true,
+      "$path": "src/Workspace"
     }
+  }
 }

@@ -1,0 +1,36 @@
+--[[ Mario Geo-Switch-Case IDs ]]
+
+local Enum = {}
+
+-- enum MarioEyesGSCId
+Enum.MARIO_EYES_BLINK = 0x00
+Enum.MARIO_EYES_OPEN = 0x01
+Enum.MARIO_EYES_HALF_CLOSED = 0x02
+Enum.MARIO_EYES_CLOSED = 0x03
+Enum.MARIO_EYES_LOOK_LEFT = 0x04  -- unused
+Enum.MARIO_EYES_LOOK_RIGHT = 0x05 -- unused
+Enum.MARIO_EYES_LOOK_UP = 0x06    -- unused
+Enum.MARIO_EYES_LOOK_DOWN = 0x07  -- unused
+Enum.MARIO_EYES_DEAD = 0x08
+
+-- enum MarioHandGSCId
+Enum.MARIO_HAND_FISTS = 0x00
+Enum.MARIO_HAND_OPEN = 0x01
+Enum.MARIO_HAND_PEACE_SIGN = 0x02
+Enum.MARIO_HAND_HOLDING_CAP = 0x03
+Enum.MARIO_HAND_HOLDING_WING_CAP = 0x04
+Enum.MARIO_HAND_RIGHT_OPEN = 0x05
+
+-- enum MarioCapGSCId
+Enum.MARIO_HAS_DEFAULT_CAP_ON = 0x00
+Enum.MARIO_HAS_DEFAULT_CAP_OFF = 0x01
+Enum.MARIO_HAS_WING_CAP_ON = 0x02
+Enum.MARIO_HAS_WING_CAP_OFF = 0x03 -- unused
+
+-- enum MarioGrabPosGSCId
+Enum.GRAB_POS_NULL = 0x00
+Enum.GRAB_POS_LIGHT_OBJ = 0x01
+Enum.GRAB_POS_HEAVY_OBJ = 0x02
+Enum.GRAB_POS_BOWSER = 0x03
+
+return table.freeze(Enum)
