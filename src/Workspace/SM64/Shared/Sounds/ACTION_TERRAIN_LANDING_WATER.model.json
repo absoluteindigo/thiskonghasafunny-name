@@ -1,0 +1,9 @@
+{
+  "name": null,
+  "className": "Sound",
+  "properties": {
+    "RollOffMaxDistance": 200.0,
+    "RollOffMode": "Linear",
+    "Volume": 1.0
+  }
+}

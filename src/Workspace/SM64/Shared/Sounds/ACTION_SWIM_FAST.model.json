@@ -1,0 +1,23 @@
+{
+  "name": null,
+  "className": "Sound",
+  "properties": {
+    "LoopRegion": {
+      "NumberRange": [
+        0.0,
+        0.0
+      ]
+    },
+    "PlaybackRegion": {
+      "NumberRange": [
+        0.0,
+        0.0
+      ]
+    },
+    "PlaybackRegionsEnabled": true,
+    "RollOffMaxDistance": 200.0,
+    "RollOffMode": "Linear",
+    "SoundId": "rbxassetid://110141904976580",
+    "Volume": 1.0
+  }
+}

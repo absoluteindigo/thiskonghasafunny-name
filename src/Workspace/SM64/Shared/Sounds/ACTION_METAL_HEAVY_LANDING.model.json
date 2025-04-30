@@ -1,0 +1,14 @@
+{
+  "name": null,
+  "className": "Sound",
+  "properties": {
+    "PlaybackSpeed": 0.7070000171661377,
+    "RollOffMaxDistance": 200.0,
+    "RollOffMode": "Linear",
+    "SoundId": "rbxassetid://102334093339658",
+    "Volume": 1.0
+  },
+  "attributes": {
+    "Play": false
+  }
+}

@@ -1,3 +1,12 @@
 {
-  "ignoreUnknownInstances": true
+  "attributes": {
+    "DebugToggle": true,
+    "HotLoading": true,
+    "Metal": false,
+    "Rojo_Id": "608331aa0bfc659b0823ff180000bde1",
+    "TimeScale": 1.0,
+    "ToolAssistedInput": true,
+    "TruncateBounds": true,
+    "WingCap": false
+  }
 }
