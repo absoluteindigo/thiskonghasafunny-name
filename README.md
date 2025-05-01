@@ -16,7 +16,11 @@ some models are just completely missing like the goomba, if u want one u can get
 
 # TERMS OF USE / CREDITS
 you may use this in your game but you must give credit to everyone listed below:
+
 spritesworkshop
+
 Nobonet
+
 MaximumADHD
+
 the SM64 decomp project
