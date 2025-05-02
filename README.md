@@ -31,6 +31,10 @@ a port of super mario 64's movment code and various object utilities into roblox
 
 this port fixes various innacuracies present in nobonet's fork (not all) and introduced new ones with the introduction of the object class *(and various other things the object class relies on)*
 
+**example**
+
+<img src=https://raw.githubusercontent.com/spritesworkshop/media/refs/heads/main/RobloxStudioBeta_SrL4ISVJ6U.gif>
+
 # ⁉️ Help
 
 use [rojo](https://rojo.space/) to set this thing up, if you need help using this thing, join the [discord sever](https://discord.gg/9KT5Yr47zc) for support/to ask questions
