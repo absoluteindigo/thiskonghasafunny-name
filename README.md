@@ -1,26 +1,44 @@
-# sm64-roblox
+# ⚠️THIS IS AN EARLY VERSION OF THE ENGINE⚠️
+
+# ⚠️THIS IS NOT USABLE IN AN ACTAL GAME⚠️
+
+# ⚠️i just felt like putting this on github early⚠️
+
+-
+
+-
+
+-
+
+-
+
+
+# 🎮 [Try out the demo here!](https://www.roblox.com/games/98432141298692/)
+
+# ⚠️ COPY AND PASTE THIS in the description of your game if you are going to use this
+```
+@spritesworkshop Engine
+@Nobonet Code
+@MaximumADHD Code
+```
+you may use this in your game but you must give credit the people listed above, or at the very least, credit this repo `spritesworkshop/sm64-roblox`
+
+# ❔ spritesworkshop/sm64-roblox
 
 (brought to you by *spritesworkshop*)
 
-[TRY OUT THE DEMO HERE](https://www.roblox.com/games/92910781660640/)
-
-# ⚠️ NOTE:
-
-## THIS IS AN EARLY VERSION OF THE ENGINE❗❗ the code behind this isnt too polished yet!
-
 a port of super mario 64's movment code and various object utilities into roblox luau. currently you can spawn goombas and some other stuff go FIGURE IT OUT AGHHH
 
-compared to nobonet's fork, this one fixes innaccuracies (not all) and included objects ported (for the most part, WIP)
+this port fixes various innacuracies present in nobonet's fork (not all) and introduced new ones with the introduction of the object class *(and various other things the object class relies on)*
 
-some models are just completely missing like the goomba, if u want one u can get one [here](https://create.roblox.com/store/asset/138138557632335/Goomba-OPEN-SOURCE-WITH-CODE) i dunno, i dont feel like documenting this yet
+# ⁉️ Help
 
-# TERMS OF USE / CREDITS
-you may use this in your game but you must give credit to everyone listed below:
+use [rojo](https://rojo.space/) to set this thing up, if you need help using this thing, join the [discord sever](https://discord.gg/9KT5Yr47zc) for support/to ask questions
 
-spritesworkshop
+*if you cant use discord, find me on [steam](https://steamcommunity.com/id/ripoof/)*
 
-Nobonet
+---
 
-MaximumADHD
+note: disable `StreamingEnabled`
 
-the SM64 decomp project
+note 2: currently there is an `ObjectValue` under `Package` in the explorer called `Core`, if the `Value` property is empty in the properties tab, then set it to `SM64` (`workspace.SM64`)
