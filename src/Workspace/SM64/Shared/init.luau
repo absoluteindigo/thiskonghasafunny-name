@@ -8,6 +8,7 @@ local Shared = {
 	Animations = Animations,
 	Sounds = Sounds.SoundTable,
 	VoiceTable = Sounds.VoiceTable,
+	Enums = Enums,
 }
 
 return Shared

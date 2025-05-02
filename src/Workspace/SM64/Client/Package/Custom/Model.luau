@@ -12,6 +12,8 @@ local Util = require(script.Parent.Parent.Util)
 
 local FLIP = CFrame.Angles(0, math.pi, 0)
 local GraphNodeConstats = require(script.Parent.Parent.Game.Object.GraphNodeConstats)
+
+local PLACEHOLDER_ANIM_ID = 'rbxassetid://0'
 local STEP_RATE = FFlags.STEP_RATE
 
 local ModelClass = {}
@@ -56,7 +58,12 @@ end
 
 function ModelClass:SetModel(model)
 	self:Destroy()
-
+	
+	if not model then
+		warn('NO MODEL PASSED IN', debug.traceback())
+		return
+	end
+	
 	self.Name = model.Name
 	local new = model.New or simpleNew
 	local Model, Custom = new(model, self)
@@ -201,15 +208,10 @@ function ModelClass:updateAnimation()
 
 			if animator and not activeTrack and anim then
 				if anim.AnimationId == '' then
-					anim.AnimationId = 'rbxassetid://0'
+					warn('Empty AnimationId for', anim, 'Replaced with placeholder.')
+					anim.AnimationId = PLACEHOLDER_ANIM_ID
 				end
-				--[[if anim.AnimationId == "" then
-					if RunService:IsStudio() then
-						warn("!! FIXME: Empty AnimationId for", anim.Name, "will break in live games!")
-					end
-
-					anim.AnimationId = emptyId
-				end]]
+				
 				local track = loadedAnims[anim.Name] or animator:LoadAnimation(anim)
 				activeTrack = track
 

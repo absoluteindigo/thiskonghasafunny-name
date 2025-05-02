@@ -225,6 +225,27 @@ function BehaviorCommands.obj_update_gfx_pos_and_angle(obj)
 	)
 end
 
+-- CUSTOM HELPER
+warn('TODO: solve this better')
+local function CompareAction(gCurrentObject: Object) 
+	-- If the object's action has changed, reset the action timer.
+	if gCurrentObject == gMarioObject then return end
+	local Action = gCurrentObject.Action
+	if type(Action) == 'table' then
+		if gCurrentObject.Action() ~= gCurrentObject.PrevAction() then
+			print('wow')
+			gCurrentObject.Timer = 0
+			gCurrentObject.SubAction = 0
+			gCurrentObject.PrevAction:Copy(gCurrentObject.Action)
+		end
+	else
+		if gCurrentObject.Action ~= gCurrentObject.PrevAction then
+			gCurrentObject.Timer = 0
+			gCurrentObject.SubAction = 0
+			gCurrentObject.PrevAction = gCurrentObject.Action
+		end
+	end
+end
 function BehaviorCommands.cur_obj_update(gCurrentObject: Object) 
 	-- const gCurrentObject = gLinker.ObjectListProcessor.gCurrentObject
 	-- const gMarioObject = gLinker.ObjectListProcessor.gMarioObject
@@ -244,11 +265,7 @@ function BehaviorCommands.cur_obj_update(gCurrentObject: Object)
 	end
 
 	-- If the object's action has changed, reset the action timer.
-	if gCurrentObject.Action ~= gCurrentObject.PrevAction then
-		gCurrentObject.Timer = 0
-		gCurrentObject.SubAction = 0
-		gCurrentObject.PrevAction = gCurrentObject.Action
-	end
+	CompareAction(gCurrentObject)
 
 	-- Execute the behavior script.
 	-- TODO:
@@ -281,11 +298,8 @@ function BehaviorCommands.cur_obj_update(gCurrentObject: Object)
 		gCurrentObject.Timer += 1
 	end
 
-	if gCurrentObject.Action ~= gCurrentObject.PrevAction then
-		gCurrentObject.Timer = 0
-		gCurrentObject.SubAction = 0
-		gCurrentObject.PrevAction = gCurrentObject.Action
-	end
+	-- If the object's action has changed, reset the action timer.
+	CompareAction(gCurrentObject)
 
 	objFlags = gCurrentObject.Flags
 

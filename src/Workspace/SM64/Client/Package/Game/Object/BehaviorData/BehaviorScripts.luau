@@ -274,6 +274,9 @@ local specialPropertyCase = {
 	bhvDoor = {
 		DoorUnkF8 = 0,
 	},
+	bhvSingleCoinGetsSpawned = {
+		CoinBaseVelY = 0
+	},
 }
 -- run a command (innacurate)
 local commandCase = {

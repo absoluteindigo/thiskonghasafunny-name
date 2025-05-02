@@ -24,6 +24,8 @@ local GraphNodeConstats = require(script.GraphNodeConstats)
 
 local Model = require(script.Parent.Parent.Custom.Model)
 
+local cur_obj_update = BehaviorCommands.cur_obj_update
+
 local ObjectClass = {
 	ObjectListProcessor = ObjectListProcessor,
 	ObjectHelpers = ObjectHelpers,
@@ -199,7 +201,7 @@ local function rawUpdate(entity)
 	end
 
 	--> BEHAVIOR
-	BehaviorCommands.cur_obj_update(entity)
+	cur_obj_update(entity)
 
 	--> SURFACE COLLISSIONS (CUSTOM IMPLEMENTATION)
 	if entity.OBJ_COL then

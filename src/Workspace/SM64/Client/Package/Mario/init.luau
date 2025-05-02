@@ -2695,6 +2695,7 @@ function Mario.new(): Mario
 		FaceAngleYaw = 0,
 		FaceAngleRoll = 0,
 		CollidedObjInteractTypes = Flags.new(),
+		Timer = 0,
 	}
 	
 	state.Audio = Audio.new(state)
