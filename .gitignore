@@ -1,3 +1,9 @@
+# Project place file
+/sm64-roblox.rbxlx
 
+# Roblox Studio lock files
+/*.rbxlx.lock
+/*.rbxl.lock
+
+# Other stuff
 sourcemap.json
-*.lock

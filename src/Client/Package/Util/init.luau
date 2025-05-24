@@ -7,7 +7,7 @@ local Util = {
 local CollectionService = game:GetService("CollectionService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
-local Core = script.Parent.Core.Value
+local Core = script.Parent.Parent.Parent
 local RNG = Random.new()
 
 local Enums = require(script.Parent.Enums)
