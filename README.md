@@ -35,14 +35,21 @@ this port fixes various innacuracies present in nobonet's fork (not all) and int
 
 <img src=https://raw.githubusercontent.com/spritesworkshop/media/refs/heads/main/RobloxStudioBeta_SrL4ISVJ6U.gif>
 
-# ⁉️ Help
+# 🚀 Install
 
-use [rojo](https://rojo.space/) to set this thing up, if you need help using this thing, join the [discord sever](https://discord.gg/9KT5Yr47zc) for support/to ask questions
+to install this project, you will need:
+- the latest version of rojo (and the rojo plugin/extension)
 
-*if you cant use discord, find me on [steam](https://steamcommunity.com/id/ripoof/)*
+if you don't have rojo installed already, here are the install links:
+- https://github.com/rojo-rbx/rojo/releases will give you download instructions. i recommend cargo for quick-n-dirty installation of the executable.
+- https://marketplace.visualstudio.com/items?itemName=evaera.vscode-rojo is the link for the REAL rojo extension. there are some fake versions out there with malware, so always use THIS one.
 
----
+> [!NOTE]
+> you should create a fork beforehand and THEN clone your forked repository.
+> bcoz you cant make changes to the main repository, forking will let you make changes to your own stuff.
 
-note: disable `StreamingEnabled`
+after installing rojo everywhere, you can clone this project by using `git clone https://github.com/spritesworkshop/sm64-roblox.git`. you SHOULD have git installed on your PC. if not, install it from https://git-scm.com/. also make sure you `cd` into a directory you will remember, because in your terminal that's where git will clone it to.
 
-note 2: currently there is an `ObjectValue` under `Package` in the explorer called `Core`, if the `Value` property is empty in the properties tab, then set it to `SM64` (`workspace.SM64`)
+when the project is cloned, open Visual Studio Code and then open the cloned folder. you now can start syncing!! press `🚀 Rojo` in the bottom and then click on `default.project.json`. This will sync your project to the localhost and you can now sync to roblox.
+
+in roblox, launch into a default baseplate and then open the rojo plugin from the plugins tab. then, hit `Connect`. it will connect you to the localhost and you may be asked to sync in all of the assets. just hit yes, and then you have the game working! add whatever you want.

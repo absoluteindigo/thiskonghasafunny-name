@@ -1,0 +1,76 @@
+{
+    "name": "Super Mario 64",
+
+    "tree": {
+        "$className": "DataModel",
+        "$ignoreUnknownInstances": true,
+        
+        "Workspace": {
+            "$className": "Workspace",
+            "$ignoreUnknownInstances": true,
+
+            "$properties": {
+                "StreamingEnabled": false
+            },
+
+            "Objects": {
+                "$className": "Folder",
+                "$path": "src/Objects"
+            },
+
+            "SM64": {
+                "$className": "Folder",
+
+                "$attributes": {
+                    "DebugToggle": true,
+                    "HotLoading": true,
+                    "Metal": false,
+                    "TimeScale": 1.0,
+                    "ToolAssistedInput": true,
+                    "TruncateBounds": true,
+                    "WingCap": false
+                },
+
+                "Collission": {
+                    "$className": "ViewportFrame",
+
+                    "$properties": {
+                        "Ambient": {"Color3": [0, 0, 0]},
+                        "LightColor": {"Color3": [0, 0, 0]},
+                        "BackgroundColor3": {"Color3": [0, 0, 0]},
+                        "Interactable": false,
+                        "Size": {"UDim2": [[0, 0], [0, 0]]},
+                        "Visible": false,
+                        "ImageColor3": {"Color3": [0, 0, 0]}
+                    }
+                },
+
+                "Ignore": {
+                    "$className": "Folder"
+                },
+
+                "Client": {
+                    "$path": "src/Client"
+                },
+
+                "Server": {
+                    "$path": "src/Server"
+                },
+
+                "Shared": {
+                    "$path": "src/Shared"
+                }
+            }
+        },
+
+        "ReplicatedStorage":{
+            "$className": "ReplicatedStorage",
+            "$ignoreUnknownInstances": true,
+
+            "Assets": {
+                "$className": "Folder",
+                "$path": "src/Assets"
+            }
+        }
+    }
+}

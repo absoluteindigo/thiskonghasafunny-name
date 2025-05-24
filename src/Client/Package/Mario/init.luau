@@ -3,7 +3,6 @@ local Mario = {}
 Mario.__index = Mario
 
 local SM64 = script.Parent
-local Core = script.Parent.Core.Value
 local Custom = SM64.Custom
 
 local FFlags = require(SM64.FFlags)

@@ -1,3 +1,6 @@
+# Project place file
+/the-actual-fix.rbxlx
 
-sourcemap.json
-*.lock
+# Roblox Studio lock files
+/*.rbxlx.lock
+/*.rbxl.lock
