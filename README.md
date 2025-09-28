@@ -4,7 +4,7 @@
 
 # ⚠️i just felt like putting this on github early⚠️
 
--
+- ⚠️psst hey absolute indigo here you should really make your own fork cuz why not uhhh im running out of text help⚠️
 
 -
 
@@ -13,19 +13,19 @@
 -
 
 
-# 🎮 [Try out the demo here!](https://www.roblox.com/games/98432141298692/)
+# 🎮 [Try out the demo here!](https://www.roblox.com/games/98432141298692/) - this dosent work.
 
-# ⚠️ COPY AND PASTE THIS in the description of your game if you are going to use this
+# ⚠️ COPY AND PASTE THIS in the description of your game if you are going to use this - (you really should)
 ```
 @spritesworkshop Engine
 @Nobonet Code
 @MaximumADHD Code
 ```
-you may use this in your game but you must give credit the people listed above, or at the very least, credit this repo `spritesworkshop/sm64-roblox`
+you may use this in your game but you must give credit the people listed above, or at the very least, credit this repo `spritesworkshop/sm64-roblox` (yeah credit it yeah do it or i shoot you)
 
 # ❔ spritesworkshop/sm64-roblox
 
-(brought to you by *spritesworkshop*)
+(brought to you by *spritesworkshop*) - hey this is my fork so i should get some credit atleast
 
 a port of super mario 64's movment code and various object utilities into roblox luau. currently you can spawn goombas and some other stuff go FIGURE IT OUT AGHHH
 
